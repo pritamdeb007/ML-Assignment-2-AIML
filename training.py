@@ -1,15 +1,12 @@
-"""Train and evaluate the five classifiers required for BITS ML Assignment 2.
+"""
+Train and evaluate five classification models using the
+Phishing Websites dataset.
 
-Run from the project folder:
-    python training.py
+The program loads the dataset, checks the data, prepares
+the training and testing sets, trains five classifiers,
+calculates evaluation metrics and saves the trained
+models and test dataset for the Streamlit application.
 
-The script reads the original UCI ARFF file, checks the data, creates a
-reproducible train/test split, trains five classifiers, reports the six
-required metrics, saves the trained pipelines, and exports test_data.csv.
-
-This is an annotated learning reference. Read the comments and make sure you
-can explain the dataset and modelling choices before using the work in your
-academic submission.
 """
 
 from __future__ import annotations
@@ -62,7 +59,56 @@ RANDOM_SEED = 42
 N_SPLITS = 5  # First fold gives an approximately 80:20 train/test split.
 TARGET_COLUMN = "Result"
 PHISHING_LABEL = "Phishing"
-LEGITIMATE_LABEL = "Legitimate"
+LEGITIMATE_LABEL = "Leg""
+Train and evaluate five classification models using the
+Phishing Websites dataset.
+
+The program loads the dataset, checks the data, prepares
+the training and testing sets, trains five classifiers,
+calculates evaluation metrics and saves the trained
+models and test dataset for the Streamlit application.
+
+"""
+
+from __future__ import annotations
+
+import json
+import platform
+import sys
+from pathlib import Path
+from typing import Dict, Tuple
+
+import joblib
+import numpy as np
+import pandas as pd
+import sklearn
+from scipy.io import arff
+from sklearn.base import ClassifierMixin
+from sklearn.metrics import (
+    accuracy_score,
+    f1_score,
+    matthews_corrcoef,
+    precision_score,
+    recall_score,
+    roc_auc_score,
+)
+from sklearn.model_selection import StratifiedGroupKFold
+from sklearn.naive_bayes import GaussianNB
+from sklearn.neighbors import KNeighborsClassifier
+from sklearn.pipeline import Pipeline
+from sklearn.preprocessing import StandardScaler
+from sklearn.svm import SVC
+from sklearn.linear_model import LogisticRegression
+from sklearn.tree import DecisionTreeClassifier
+
+
+# ---------------------------------------------------------------------------
+# 1. Project settings
+# ---------------------------------------------------------------------------
+
+PROJECT_DIR = Path(__file__).resolve().parent
+RAW_DATA_CANDIDATES = [
+    PROJECT_DIR / "data"itimate"
 
 
 # ---------------------------------------------------------------------------
@@ -462,11 +508,6 @@ def main() -> None:
     print(f"  Metrics summary : {METRICS_PATH.relative_to(PROJECT_DIR)}")
     print(f"  Model metadata  : {METADATA_PATH.relative_to(PROJECT_DIR)}")
     print("\nTraining completed successfully.")
-    print(
-        "Reminder: run this program in BITS Virtual Lab and capture the "
-        "required execution screenshot."
-    )
-
 
 if __name__ == "__main__":
     try:
