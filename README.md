@@ -8,27 +8,33 @@ The aim of this project is to compare five supervised classification algorithms 
 
 ## Dataset Description
 
-Dataset Name: Phishing Websites
 
-Source: UCI Machine Learning Repository
-Dataset ID: 327
+| Parameter | Details |
+|---|---|
+| Dataset Name | Phishing Websites |
+| Source | UCI Machine Learning Repository |
+| Dataset ID | 327 |
+| Problem Type | Binary Classification |
+| Total Instances | 11,055 |
+| Input Features | 30 |
+| Target Variable | Result |
+| Missing Values | 0 |
+| Phishing Records | 4,898 |
+| Legitimate Records | 6,157 |
 
-Dataset URL:
-https://archive.ics.uci.edu/dataset/327/phishing
-
-Problem Type: Binary Classification
-
-Total Instances: 11,055
-Input Features: 30
-Target Variable: Result
-
-Target Labels:
+**Target labels:**
 - -1: Phishing
 - +1: Legitimate
 
-Missing Values: 0
+[Official UCI Dataset](https://archive.ics.uci.edu/dataset/327/phishing)
 
 ## Data Preparation and Methodology
+
+The dataset contains repeated feature profiles.
+These records were retained rather than deleted.
+Identical feature profiles were assigned to the same
+data-splitting group to reduce leakage between
+training and testing datasets.
 
 The dataset was inspected for missing values,
 duplicate records and target class distribution.
