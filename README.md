@@ -1,16 +1,20 @@
+
 # Machine Learning Assignment 2
 
-## Project title
+## Project Title
+
 **Phishing Website Classification Using Machine Learning**
 
-## Problem statement
-The aim of this project is to compare five supervised classification algorithms for identifying whether a website is phishing or legitimate using the website-characteristic features in the UCI Phishing Websites dataset.
+## 1. Problem Statement
 
-## Dataset Description
+The aim of this project is to compare five supervised machine learning classification algorithms for identifying whether a website is phishing or legitimate based on its website-related characteristics.
 
+The project uses the Phishing Websites dataset from the UCI Machine Learning Repository and evaluates the performance of five classification models using six evaluation metrics.
+
+## 2. Dataset Description
 
 | Parameter | Details |
-|---|---|
+|:--|:--|
 | Dataset Name | Phishing Websites |
 | Source | UCI Machine Learning Repository |
 | Dataset ID | 327 |
@@ -22,46 +26,65 @@ The aim of this project is to compare five supervised classification algorithms 
 | Phishing Records | 4,898 |
 | Legitimate Records | 6,157 |
 
+**Dataset Source:** [UCI Phishing Websites Dataset](https://archive.ics.uci.edu/dataset/327/phishing)
+
 **Target labels:**
-- -1: Phishing
-- +1: Legitimate
+- `-1`: Phishing
+- `+1`: Legitimate
 
-[Official UCI Dataset](https://archive.ics.uci.edu/dataset/327/phishing)
+## 3. Data Preparation and Methodology
 
-## Data Preparation and Methodology
+The dataset was inspected for missing values, duplicate records and target class distribution.
 
-The dataset contains repeated feature profiles.
-These records were retained rather than deleted.
-Identical feature profiles were assigned to the same
-data-splitting group to reduce leakage between
-training and testing datasets.
+The original dataset contains 11,055 records and 30 input features, with no missing values.
 
-The dataset was inspected for missing values,
-duplicate records and target class distribution.
+The target variable, `Result`, was separated from the input features before model training. The original target values were mapped to the following class labels:
 
-The original dataset contains 11,055 records
-and 30 input features.
+- `-1`: Phishing
+- `+1`: Legitimate
 
-The target variable was separated from the
-input features before model training.
+A `StratifiedGroupKFold` approach was used with five folds, shuffling enabled and random seed 42. The first fold was selected, resulting in an approximately 80:20 training and testing split.
 
-A Stratified Group K Fold approach was used
-with 5 folds and random seed 42.
+The resulting dataset was divided as follows:
 
-Identical feature profiles were kept within
-the same partition to reduce data leakage.
+| Dataset | Number of Records |
+|:--|--:|
+| Training dataset | 8,843 |
+| Testing dataset | 2,212 |
+| Total | 11,055 |
 
-The selected split contained:
-- Training records: 8,843
-- Testing records: 2,212
+Repeated feature profiles were retained rather than deleted. Identical combinations of the 30 input features were assigned to the same group to prevent the same feature profile from appearing in both training and testing datasets.
 
-StandardScaler was included in pipelines
-for Logistic Regression, KNN and SVM.
+`StandardScaler` was included in pipelines for Logistic Regression, K-Nearest Neighbors and Support Vector Machine.
 
-## Model Comparison
+Phishing was treated as the positive class when calculating Precision, Recall, F1 Score and AUC.
 
-The following table presents the performance of the five
-classification models using the six evaluation metrics.
+## 4. Machine Learning Models
+
+The following five supervised classification algorithms were implemented using Scikit-learn:
+
+1. Logistic Regression
+2. Decision Tree Classifier
+3. K-Nearest Neighbors (KNN)
+4. Gaussian Naive Bayes
+5. Support Vector Machine (SVM)
+
+The trained models were saved using Joblib for subsequent use in the application.
+
+## 5. Model Evaluation Metrics
+
+Each model was evaluated using the following six metrics:
+
+- Accuracy
+- Area Under the ROC Curve (AUC)
+- Precision
+- Recall
+- F1 Score
+- Matthews Correlation Coefficient (MCC)
+
+## 6. Model Comparison
+
+The following table presents the performance of all five classification models on the held-out test dataset.
 
 | Model | Accuracy | AUC | Precision | Recall | F1 Score | MCC |
 |:--|--:|--:|--:|--:|--:|--:|
@@ -71,53 +94,58 @@ classification models using the six evaluation metrics.
 | Gaussian Naive Bayes | 0.5995 | 0.9732 | 0.5252 | 1.0000 | 0.6887 | 0.3841 |
 | Support Vector Machine | **0.9539** | **0.9870** | **0.9720** | 0.9224 | **0.9466** | **0.9070** |
 
-## GitHub repository link
-https://github.com/pritamdeb007/ML-Assignment-2-AIML
+## 7. Observations on Model Performance
 
-## Observations on model performance
-Performance observations are noted as below:
+The following observations were made based on the evaluation results:
 
-- **Support Vector Machine (SVM):** Achieved the highest accuracy of 95.39%, AUC of 0.9870 and MCC of 0.9070 in this experiment.
-- **Logistic Regression:** Delivered strong performance with 93.17% accuracy and 0.9810 AUC.
-- **Decision Tree:** Achieved 92.36% accuracy and provided a relatively interpretable classification approach.
-- **K-Nearest Neighbors:** Achieved 91.68% accuracy with competitive precision and recall.
-- **Gaussian Naive Bayes:** Achieved 100% recall but comparatively low precision of 0.5252, indicating a higher number of false-positive predictions.
+- **Support Vector Machine (SVM):** Achieved the highest Accuracy of 0.9539 (95.39%), AUC of 0.9870 and MCC of 0.9070. It also achieved the highest Precision and F1 Score among the five models.
+- **Logistic Regression:** Delivered strong performance with 93.17% Accuracy and an AUC of 0.9810.
+- **Decision Tree:** Achieved 92.36% Accuracy and offers a relatively interpretable classification approach.
+- **K-Nearest Neighbors:** Achieved 91.68% Accuracy with competitive Precision and Recall.
+- **Gaussian Naive Bayes:** Achieved 100% Recall but comparatively low Precision of 0.5252. This indicates that while it identified all actual phishing cases in the test dataset, it also produced a relatively high number of false-positive predictions.
 
-Overall, SVM provided the strongest balance of classification performance across the six evaluation metrics in this experiment. Gaussian Naive Bayes demonstrated the importance of considering precision and recall alongside accuracy.
+Overall, Support Vector Machine provided the strongest results across most of the evaluation metrics in this experiment. Gaussian Naive Bayes achieved the highest Recall, demonstrating why multiple evaluation metrics are important when comparing classification models.
 
-## Streamlit Application
+## 8. GitHub Repository
 
-The application source code is maintained
-in app.py.
+The project source code, dataset, trained models and evaluation results are maintained in the following public GitHub repository:
 
-The application is designed to provide:
+[ML-Assignment-2-AIML](https://github.com/pritamdeb007/ML-Assignment-2-AIML)
 
-1. CSV test dataset upload.
-2. Selection among five trained classifiers.
-3. Display of six evaluation metrics.
-4. Confusion matrix or classification report.
+## 9. Streamlit Application
 
-The application uses previously saved
-trained models and does not retrain them
-when a test dataset is uploaded.
+The application source code is maintained in `app.py`.
 
-Deployment link: Pending.
+The application is designed to provide the following functionality:
 
-## Project files
+1. Upload a CSV test dataset.
+2. Select one of the five trained classification models.
+3. Display the six evaluation metrics.
+4. Display a confusion matrix and classification report.
 
-- `training.py` — loads and checks the ARFF dataset, creates the split, trains and evaluates the five models and saves the outputs.
-- `app.py` — Streamlit interface for test-data upload and model evaluation.
-- `requirements.txt` — Python dependencies.
-- `test_data.csv` — held-out test rows, including the target column.
-- `model/` — five saved model pipelines and `metadata.json`.
-- `metrics_summary.csv` — six evaluation metrics for all five models.
-- `data/raw/` — original UCI ARFF data file.
-- `FEATURE_REFERENCE.md` — plain-language descriptions of the feature names.
+The application loads previously trained models and does not retrain them when a test dataset is uploaded.
 
-## Dataset acknowledgement
+**Deployment URL:** Pending.
 
-Mohammad, Rami M., Fadi Thabtah, and Lee McCluskey. *Phishing Websites* dataset, UCI Machine Learning Repository, dataset ID 327. [Dataset record](https://archive.ics.uci.edu/dataset/327/phishing).
-The Phishing Websites dataset was obtained
-from the UCI Machine Learning Repository.
-Dataset ID: 327
-https://archive.ics.uci.edu/dataset/327/phishing
+## 10. Project Files
+
+| File / Folder | Description |
+|:--|:--|
+| `training.py` | Loads and checks the ARFF dataset, prepares the data, trains and evaluates the five models, and saves the outputs. |
+| `app.py` | Streamlit application for dataset upload and model evaluation. |
+| `requirements.txt` | Python libraries and dependencies required by the project. |
+| `test_data.csv` | Held-out test records containing 30 input features and the target column. |
+| `metrics_summary.csv` | Evaluation results for all five classification models. |
+| `model/` | Contains the five saved model pipelines and `metadata.json`. |
+| `data/raw/` | Contains the original UCI ARFF dataset. |
+| `FEATURE_REFERENCE.md` | Descriptions of the dataset's input features. |
+
+## 11. Dataset Acknowledgement
+
+The Phishing Websites dataset was obtained from the UCI Machine Learning Repository.
+
+**Dataset:** Phishing Websites  
+**Authors:** Mohammad, Rami M., Fadi Thabtah and Lee McCluskey.  
+**Dataset ID:** 327
+
+[UCI Machine Learning Repository – Phishing Websites](https://archive.ics.uci.edu/dataset/327/phishing)
