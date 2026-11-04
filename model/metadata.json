@@ -1,0 +1,137 @@
+{
+    "project_title": "Phishing Website Classification Using Machine Learning",
+    "dataset_name": "Phishing Websites",
+    "dataset_source": "UCI Machine Learning Repository, dataset ID 327",
+    "dataset_url": "https://archive.ics.uci.edu/dataset/327/phishing",
+    "target_column": "Result",
+    "positive_class_for_metrics": "Phishing",
+    "class_labels": [
+        "Phishing",
+        "Legitimate"
+    ],
+    "original_target_mapping": {
+        "-1": "Phishing",
+        "1": "Legitimate"
+    },
+    "feature_names": [
+        "having_IP_Address",
+        "URL_Length",
+        "Shortining_Service",
+        "having_At_Symbol",
+        "double_slash_redirecting",
+        "Prefix_Suffix",
+        "having_Sub_Domain",
+        "SSLfinal_State",
+        "Domain_registeration_length",
+        "Favicon",
+        "port",
+        "HTTPS_token",
+        "Request_URL",
+        "URL_of_Anchor",
+        "Links_in_tags",
+        "SFH",
+        "Submitting_to_email",
+        "Abnormal_URL",
+        "Redirect",
+        "on_mouseover",
+        "RightClick",
+        "popUpWidnow",
+        "Iframe",
+        "age_of_domain",
+        "DNSRecord",
+        "web_traffic",
+        "Page_Rank",
+        "Google_Index",
+        "Links_pointing_to_page",
+        "Statistical_report"
+    ],
+    "model_file_names": {
+        "Logistic Regression": "logistic_regression.joblib",
+        "Decision Tree": "decision_tree.joblib",
+        "K-Nearest Neighbors": "knn.joblib",
+        "Gaussian Naive Bayes": "gaussian_naive_bayes.joblib",
+        "Support Vector Machine": "support_vector_machine.joblib"
+    },
+    "dataset_inspection": {
+        "dataset_rows": 11055,
+        "total_columns_including_target": 31,
+        "number_of_features": 30,
+        "target_column": "Result",
+        "missing_value_count": 0,
+        "exact_duplicate_rows_after_first": 5206,
+        "repeated_feature_profiles_after_first": 5270,
+        "feature_profiles_with_conflicting_labels": 64,
+        "class_distribution_full": {
+            "Phishing": 4898,
+            "Legitimate": 6157
+        },
+        "feature_names": [
+            "having_IP_Address",
+            "URL_Length",
+            "Shortining_Service",
+            "having_At_Symbol",
+            "double_slash_redirecting",
+            "Prefix_Suffix",
+            "having_Sub_Domain",
+            "SSLfinal_State",
+            "Domain_registeration_length",
+            "Favicon",
+            "port",
+            "HTTPS_token",
+            "Request_URL",
+            "URL_of_Anchor",
+            "Links_in_tags",
+            "SFH",
+            "Submitting_to_email",
+            "Abnormal_URL",
+            "Redirect",
+            "on_mouseover",
+            "RightClick",
+            "popUpWidnow",
+            "Iframe",
+            "age_of_domain",
+            "DNSRecord",
+            "web_traffic",
+            "Page_Rank",
+            "Google_Index",
+            "Links_pointing_to_page",
+            "Statistical_report"
+        ]
+    },
+    "split_details": {
+        "method": "StratifiedGroupKFold",
+        "folds": 5,
+        "selected_fold": 1,
+        "approximate_split_ratio": "80:20",
+        "stratified_by": "Result",
+        "grouped_by": "identical combinations of all 30 input features",
+        "random_seed": 42,
+        "train_rows": 8843,
+        "test_rows": 2212,
+        "train_class_distribution": {
+            "Legitimate": 4925,
+            "Phishing": 3918
+        },
+        "test_class_distribution": {
+            "Legitimate": 1232,
+            "Phishing": 980
+        },
+        "feature_profile_groups_in_train": 4619,
+        "feature_profile_groups_in_test": 1166,
+        "overlapping_feature_profile_groups": 0
+    },
+    "metric_names": [
+        "Accuracy",
+        "AUC",
+        "Precision",
+        "Recall",
+        "F1",
+        "MCC"
+    ],
+    "software_versions": {
+        "python": "3.12.7",
+        "scikit_learn": "1.9.1",
+        "pandas": "3.1.1",
+        "numpy": "2.5.4"
+    }
+}
