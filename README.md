@@ -54,23 +54,30 @@ for Logistic Regression, KNN and SVM.
 
 ## Model Comparison
 
-Model	                Accuracy	  AUC	 Precision  Recall	 F1	     MCC
-Logistic Regression	   0.9317	  0.9810	0.9377	 0.9061	 0.9216	  0.8616
-Decision Tree	         0.9236	  0.9324	0.9159	 0.9112	 0.9136	  0.8451
-KNN	                   0.9168	  0.9640	0.9045	 0.9082	 0.9063	  0.8315
-Gaussian Naive Bayes	 0.5995	  0.9732	0.5252	 1.0000	 0.6887	  0.3841
-SVM	                   0.9539	  0.9870	0.9720	 0.9224	 0.9466	  0.9070
+The following table presents the performance of the five
+classification models using the six evaluation metrics.
+
+| Model | Accuracy | AUC | Precision | Recall | F1 Score | MCC |
+|:--|--:|--:|--:|--:|--:|--:|
+| Logistic Regression | 0.9317 | 0.9810 | 0.9377 | 0.9061 | 0.9216 | 0.8616 |
+| Decision Tree | 0.9236 | 0.9324 | 0.9159 | 0.9112 | 0.9136 | 0.8451 |
+| K-Nearest Neighbors | 0.9168 | 0.9640 | 0.9045 | 0.9082 | 0.9063 | 0.8315 |
+| Gaussian Naive Bayes | 0.5995 | 0.9732 | 0.5252 | 1.0000 | 0.6887 | 0.3841 |
+| Support Vector Machine | **0.9539** | **0.9870** | **0.9720** | 0.9224 | **0.9466** | **0.9070** |
 
 ## GitHub repository link
 https://github.com/pritamdeb007/ML-Assignment-2-AIML
 
 ## Observations on model performance
 Performance observations are noted as below:
-- SVM achieved the highest overall accuracy and MCC in this experiment.
-- Logistic Regression also produced strong results.
-- Decision Tree and KNN gave competitive results.
-- Gaussian Naive Bayes achieved perfect recall but comparatively low precision.
-- The comparison demonstrates why multiple metrics are needed instead of relying only on accuracy.
+
+- **Support Vector Machine (SVM):** Achieved the highest accuracy of 95.39%, AUC of 0.9870 and MCC of 0.9070 in this experiment.
+- **Logistic Regression:** Delivered strong performance with 93.17% accuracy and 0.9810 AUC.
+- **Decision Tree:** Achieved 92.36% accuracy and provided a relatively interpretable classification approach.
+- **K-Nearest Neighbors:** Achieved 91.68% accuracy with competitive precision and recall.
+- **Gaussian Naive Bayes:** Achieved 100% recall but comparatively low precision of 0.5252, indicating a higher number of false-positive predictions.
+
+Overall, SVM provided the strongest balance of classification performance across the six evaluation metrics in this experiment. Gaussian Naive Bayes demonstrated the importance of considering precision and recall alongside accuracy.
 
 ## Streamlit Application
 
