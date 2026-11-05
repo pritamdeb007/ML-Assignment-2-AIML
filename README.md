@@ -1,5 +1,5 @@
 
-# Machine Learning Assignment 2
+# Machine Learning Assignment 2 AIMLZG565
 
 ## Project Title
 
@@ -125,7 +125,9 @@ The application is designed to provide the following functionality:
 
 The application loads previously trained models and does not retrain them when a test dataset is uploaded.
 
-**Deployment URL:** Pending.
+**Deployment URL:** 
+
+https://phishlens-aiml-pritam.streamlit.app/
 
 ## 10. Project Files
 
