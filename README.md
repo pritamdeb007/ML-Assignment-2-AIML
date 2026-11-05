@@ -53,6 +53,16 @@ The resulting dataset was divided as follows:
 | Testing dataset | 2,212 |
 | Total | 11,055 |
 
+### Class Distribution
+
+The class distribution across the full dataset and the training and testing partitions is shown below.
+
+| Dataset Partition | Phishing (-1) | Legitimate (+1) | Total Records |
+|:--|--:|--:|--:|
+| Full dataset | 4,898 | 6,157 | 11,055 |
+| Training dataset | 3,918 | 4,925 | 8,843 |
+| Testing dataset | 980 | 1,232 | 2,212 |
+
 Repeated feature profiles were retained rather than deleted. Identical combinations of the 30 input features were assigned to the same group to prevent the same feature profile from appearing in both training and testing datasets.
 
 `StandardScaler` was included in pipelines for Logistic Regression, K-Nearest Neighbors and Support Vector Machine.
