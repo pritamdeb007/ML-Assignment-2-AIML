@@ -718,43 +718,72 @@ st.markdown(
             background: #f3f7fb !important;
         }
 
-        /* Make all analysis tabs visible, including tabs that are not selected. */
-        .stTabs [data-baseweb="tab-list"] {
+        /* High-contrast analysis tabs. Target the tab roles directly rather
+           than relying on Streamlit wrapper class names, which vary by release. */
+        [role="tablist"],
+        [data-baseweb="tab-list"] {
             gap: 8px !important;
             padding: 6px !important;
             background: #e8eef5 !important;
             border: 1px solid #d2dce7 !important;
             border-radius: 11px !important;
         }
-        .stTabs [data-baseweb="tab"],
-        .stTabs button[role="tab"] {
+        [role="tab"],
+        [data-baseweb="tab"],
+        button[role="tab"] {
+            min-height: 41px !important;
             height: 41px !important;
+            padding: 0 13px !important;
+            margin: 0 2px !important;
+            color: #24364b !important;
+            -webkit-text-fill-color: #24364b !important;
+            background: #ffffff !important;
             border: 1px solid #cbd5e1 !important;
             border-radius: 8px !important;
-            padding: 0 12px !important;
-            color: #24364b !important;
-            background: #ffffff !important;
             opacity: 1 !important;
+            filter: none !important;
             font-size: .83rem !important;
             font-weight: 700 !important;
+            text-shadow: none !important;
         }
-        .stTabs [data-baseweb="tab"] *,
-        .stTabs button[role="tab"] * {
+        [role="tab"] *,
+        [data-baseweb="tab"] *,
+        button[role="tab"] *,
+        [role="tab"] p,
+        [role="tab"] span,
+        [role="tab"] div {
             color: #24364b !important;
+            -webkit-text-fill-color: #24364b !important;
             opacity: 1 !important;
+            text-shadow: none !important;
         }
-        .stTabs [data-baseweb="tab"][aria-selected="true"],
-        .stTabs button[role="tab"][aria-selected="true"] {
+        [role="tab"]:hover,
+        [data-baseweb="tab"]:hover,
+        button[role="tab"]:hover {
             color: #075f58 !important;
+            -webkit-text-fill-color: #075f58 !important;
+            background: #edf8f5 !important;
+            border-color: #75cbbb !important;
+        }
+        [role="tab"][aria-selected="true"],
+        [data-baseweb="tab"][aria-selected="true"],
+        button[role="tab"][aria-selected="true"] {
+            color: #075f58 !important;
+            -webkit-text-fill-color: #075f58 !important;
             background: #d9f2ec !important;
             border-color: #75cbbb !important;
             box-shadow: inset 0 -3px 0 #19a88f !important;
+            opacity: 1 !important;
         }
-        .stTabs [data-baseweb="tab"][aria-selected="true"] *,
-        .stTabs button[role="tab"][aria-selected="true"] * {
+        [role="tab"][aria-selected="true"] *,
+        [data-baseweb="tab"][aria-selected="true"] *,
+        button[role="tab"][aria-selected="true"] * {
             color: #075f58 !important;
+            -webkit-text-fill-color: #075f58 !important;
+            opacity: 1 !important;
         }
-        .stTabs [data-baseweb="tab-panel"] {
+        [role="tabpanel"],
+        [data-baseweb="tab-panel"] {
             color: #17283d !important;
             background: #ffffff !important;
             border: 1px solid #dce5ee !important;
