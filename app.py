@@ -242,6 +242,60 @@ def build_metric_cards(metrics: dict) -> str:
     return '<div class="metric-grid">' + "".join(cards) + "</div>"
 
 
+def style_visible_table(dataframe: pd.DataFrame):
+    """Apply an explicit light palette so tables remain readable in dark-mode browsers."""
+    table_styles = [
+        {
+            "selector": "table",
+            "props": [
+                ("border-collapse", "collapse"),
+                ("width", "100%"),
+                ("font-size", "0.82rem"),
+                ("color", "#17283d"),
+                ("background-color", "#ffffff"),
+            ],
+        },
+        {
+            "selector": "thead th",
+            "props": [
+                ("background-color", "#18364d"),
+                ("color", "#ffffff"),
+                ("font-weight", "700"),
+                ("border", "1px solid #cbd5e1"),
+                ("padding", "8px 10px"),
+                ("text-align", "left"),
+                ("white-space", "normal"),
+            ],
+        },
+        {
+            "selector": "tbody th",
+            "props": [
+                ("background-color", "#edf3f8"),
+                ("color", "#24364b"),
+                ("font-weight", "650"),
+                ("border", "1px solid #dce5ee"),
+                ("padding", "8px 10px"),
+                ("white-space", "normal"),
+            ],
+        },
+        {
+            "selector": "tbody td",
+            "props": [
+                ("background-color", "#ffffff"),
+                ("color", "#17283d"),
+                ("border", "1px solid #dce5ee"),
+                ("padding", "8px 10px"),
+                ("white-space", "normal"),
+            ],
+        },
+        {
+            "selector": "tbody tr:nth-child(even) td",
+            "props": [("background-color", "#f3f7fb")],
+        },
+    ]
+    return dataframe.style.set_table_styles(table_styles, overwrite=False)
+
+
 def create_confusion_figure(matrix, model_name: str):
     """Create a compact two-class confusion matrix with a meaningful legend.
 
@@ -607,27 +661,105 @@ st.markdown(
             font-size: .76rem;
             margin: 1px 0 8px 0;
         }
-        [data-testid="stDataFrame"] {
-            border: 1px solid #dce5ee;
-            border-radius: 11px;
+        /* Keep native controls readable even when the viewer's browser uses dark mode. */
+        html, [data-testid="stAppViewContainer"] { color-scheme: light; }
+        [data-testid="stSelectbox"] [data-baseweb="select"] > div {
+            background: #edf3f8 !important;
+            border: 1px solid #cbd8e5 !important;
+            color: #17283d !important;
+        }
+        [data-testid="stSelectbox"] [data-baseweb="select"] span,
+        [data-testid="stSelectbox"] [data-baseweb="select"] input {
+            color: #17283d !important;
+            -webkit-text-fill-color: #17283d !important;
+        }
+        [data-testid="stSelectbox"] [data-baseweb="select"] svg {
+            fill: #40566f !important;
+        }
+        [data-baseweb="popover"] [role="listbox"],
+        [data-baseweb="popover"] [role="option"] {
+            background: #ffffff !important;
+            color: #17283d !important;
+        }
+        [data-baseweb="popover"] [role="option"]:hover {
+            background: #e8f4f2 !important;
+            color: #0f5f59 !important;
+        }
+
+        /* The preview and result tables use a light surface with explicit dark text. */
+        [data-testid="stDataFrame"],
+        [data-testid="stTable"] {
+            border: 1px solid #cbd8e5 !important;
+            border-radius: 10px !important;
             overflow: hidden;
-            background: #fff;
+            background: #ffffff !important;
         }
+        [data-testid="stTable"] table {
+            background: #ffffff !important;
+            color: #17283d !important;
+            border-collapse: collapse !important;
+        }
+        [data-testid="stTable"] thead th {
+            background: #18364d !important;
+            color: #ffffff !important;
+            border: 1px solid #cbd5e1 !important;
+        }
+        [data-testid="stTable"] tbody th {
+            background: #edf3f8 !important;
+            color: #24364b !important;
+            border: 1px solid #dce5ee !important;
+        }
+        [data-testid="stTable"] tbody td {
+            background: #ffffff !important;
+            color: #17283d !important;
+            border: 1px solid #dce5ee !important;
+        }
+        [data-testid="stTable"] tbody tr:nth-child(even) td {
+            background: #f3f7fb !important;
+        }
+
+        /* Make all analysis tabs visible, including tabs that are not selected. */
         .stTabs [data-baseweb="tab-list"] {
-            gap: 7px;
-            border-bottom: 1px solid #dce5ee;
+            gap: 8px !important;
+            padding: 6px !important;
+            background: #e8eef5 !important;
+            border: 1px solid #d2dce7 !important;
+            border-radius: 11px !important;
         }
-        .stTabs [data-baseweb="tab"] {
-            height: 41px;
-            border-radius: 9px 9px 0 0;
-            padding: 0 12px;
-            color: #53667c;
-            font-size: .83rem;
-            font-weight: 650;
+        .stTabs [data-baseweb="tab"],
+        .stTabs button[role="tab"] {
+            height: 41px !important;
+            border: 1px solid #cbd5e1 !important;
+            border-radius: 8px !important;
+            padding: 0 12px !important;
+            color: #24364b !important;
+            background: #ffffff !important;
+            opacity: 1 !important;
+            font-size: .83rem !important;
+            font-weight: 700 !important;
         }
-        .stTabs [aria-selected="true"] {
-            color: #087f75;
-            background: #e3f6f2;
+        .stTabs [data-baseweb="tab"] *,
+        .stTabs button[role="tab"] * {
+            color: #24364b !important;
+            opacity: 1 !important;
+        }
+        .stTabs [data-baseweb="tab"][aria-selected="true"],
+        .stTabs button[role="tab"][aria-selected="true"] {
+            color: #075f58 !important;
+            background: #d9f2ec !important;
+            border-color: #75cbbb !important;
+            box-shadow: inset 0 -3px 0 #19a88f !important;
+        }
+        .stTabs [data-baseweb="tab"][aria-selected="true"] *,
+        .stTabs button[role="tab"][aria-selected="true"] * {
+            color: #075f58 !important;
+        }
+        .stTabs [data-baseweb="tab-panel"] {
+            color: #17283d !important;
+            background: #ffffff !important;
+            border: 1px solid #dce5ee !important;
+            border-radius: 0 0 11px 11px !important;
+            padding: 14px !important;
         }
         .ph-footer {
             color: #8290a0;
@@ -764,8 +896,18 @@ if uploaded_file is not None:
         f"{len(feature_names)} required input features."
     )
 
-    with st.expander("Preview uploaded test data"):
-        st.dataframe(uploaded_data.head(10), use_container_width=True)
+    st.markdown('<div class="section-heading">Uploaded test data preview</div>', unsafe_allow_html=True)
+    st.markdown(
+        '<div class="section-hint">A sample of the uploaded records is shown below. '
+        'The complete dataset, including all 30 input features, is used for evaluation.</div>',
+        unsafe_allow_html=True,
+    )
+    # Keep the preview permanently visible and compact: first 8 feature columns
+    # plus the target column. This is only a display choice; validation and
+    # predictions continue to use all 30 features in metadata order.
+    preview_columns = feature_names[:8] + [TARGET_COLUMN]
+    preview_frame = uploaded_data.loc[:, preview_columns].head(6)
+    st.table(style_visible_table(preview_frame))
 
     # Evaluate all five existing models on the same uploaded test data.
     all_results = {}
@@ -822,7 +964,7 @@ if uploaded_file is not None:
         comparison_table = pd.DataFrame.from_dict(all_results, orient="index")
         comparison_table.index.name = "ML Model Name"
         comparison_table = comparison_table.rename(columns={"F1": "F1 Score"})
-        st.dataframe(comparison_table.round(4), use_container_width=True)
+        st.table(style_visible_table(comparison_table.round(4)))
         st.caption(
             "All five classifiers are evaluated against the same uploaded test set. "
             "AUC uses the probability assigned to the Phishing class."
@@ -830,7 +972,7 @@ if uploaded_file is not None:
 
     with report_tab:
         report_frame = pd.DataFrame(all_reports[selected_model_name]).transpose()
-        st.dataframe(report_frame.round(4), use_container_width=True)
+        st.table(style_visible_table(report_frame.round(4)))
         st.caption("The positive class for Precision, Recall and F1 is Phishing.")
 
     st.info(
